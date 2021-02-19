@@ -61,9 +61,15 @@ where
 }
 
 pub fn get_chain_spec(id: ParaId) -> ChainSpec {
+	use sc_telemetry::TelemetryEndpoints;
+	const ROCOCO_STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
+	let mut prop = sc_service::Properties::new();
+	prop.insert("tokenDecimals".to_string(), 12.into());
+	prop.insert("tokenSymbol".to_string(), "SDT".into());
+
 	ChainSpec::from_genesis(
-		"Local Testnet",
-		"local_testnet",
+		"SubDAO PC1",
+		"subdao_pc1",
 		ChainType::Local,
 		move || {
 			testnet_genesis(
@@ -86,11 +92,14 @@ pub fn get_chain_spec(id: ParaId) -> ChainSpec {
 			)
 		},
 		vec![],
-		None,
-		None,
-		None,
+		Some(
+			TelemetryEndpoints::new(vec![(ROCOCO_STAGING_TELEMETRY_URL.to_string(), 0)])
+				.expect("Staging telemetry url is valid; qed"),
+		),
+		Some("subdao"),
+		Some(prop),
 		Extensions {
-			relay_chain: "westend-dev".into(),
+			relay_chain: "rococo".into(),
 			para_id: id.into(),
 		},
 	)
