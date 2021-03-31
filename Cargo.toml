@@ -1,5 +1,6 @@
 [workspace]
 members = [
+	"client/cli",
 	"client/consensus/common",
 	"client/consensus/relay-chain",
 	"client/network",
@@ -10,6 +11,7 @@ members = [
 	"primitives/parachain-inherent",
 	"rococo-parachains/",
 	"rococo-parachains/pallets/parachain-info",
+	"rococo-parachains/pallets/spambot",
 	"rococo-parachains/primitives",
 	"rococo-parachains/runtime",
 	"test/runtime",
